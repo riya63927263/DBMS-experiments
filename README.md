@@ -5,19 +5,22 @@ To design and implement an Employee–Department–Project database schema and p
 
 CODE
 
-DATABASE CREATING
+### 1. DATABASE CREATING
+```
 CREATE DATABASE EmployeeManagement;
 USE EmployeeManagement;
-TABLE CREATING
+```
+### 2.TABLE CREATING
+```
 Department Table
-
 CREATE TABLE Department (
     dept_id INT PRIMARY KEY,
     dept_name VARCHAR(50) NOT NULL,
     location VARCHAR(50)
 );
-Employee Table
-
+```
+### 3. Employee Table
+```
 CREATE TABLE Employee (
     emp_id INT PRIMARY KEY,
     emp_name VARCHAR(50) NOT NULL,
@@ -28,8 +31,9 @@ CREATE TABLE Employee (
     FOREIGN KEY (dept_id)
         REFERENCES Department(dept_id)
 );
-Project Table
-
+```
+### 4. Project Table
+```
 CREATE TABLE Project (
     project_id INT PRIMARY KEY,
     project_name VARCHAR(100) NOT NULL,
@@ -38,8 +42,9 @@ CREATE TABLE Project (
     FOREIGN KEY (dept_id)
         REFERENCES Department(dept_id)
 );
-Employee–Project Relationship
-
+```
+### 5. Employee–Project Relationship
+```
 CREATE TABLE Employee_Project (
     emp_id INT,
     project_id INT,
@@ -50,7 +55,9 @@ CREATE TABLE Employee_Project (
     FOREIGN KEY (project_id)
         REFERENCES Project(project_id)
 );
-INSERTING DEPARTMENTS
+```
+### 6. INSERTING DEPARTMENTS
+```
 INSERT INTO Department (dept_id, dept_name, location)
 VALUES
 (1, 'IT', 'Delhi'),
@@ -58,7 +65,9 @@ VALUES
 (3, 'Finance', 'Bangalore'),
 (4, 'Marketing', 'Pune'),
 (5, 'Research', 'Hyderabad');
-INSERTING 30 EMPLOYEES
+```
+### 7. INSERTING 30 EMPLOYEES
+```
 INSERT INTO Employee
 (emp_id, emp_name, gender, salary, hire_date, dept_id)
 VALUES
@@ -92,7 +101,9 @@ VALUES
 (128, 'Shreya Das', 'F', 93000, '2019-11-25', 5),
 (129, 'Yash Thakur', 'M', 79000, '2022-07-14', 5),
 (130, 'Diya Kapoor', 'F', 96000, '2023-02-02', 5);
-INSERTING 8 PROJECTS
+```
+### 8.INSERTING 8 PROJECTS
+````
 INSERT INTO Project
 (project_id, project_name, budget, dept_id)
 VALUES
@@ -104,7 +115,9 @@ VALUES
 (206, 'Market Research', 350000, 4),
 (207, 'Machine Learning Research', 900000, 5),
 (208, 'AI Security System', 1000000, 5);
-ASSIGNING EMPLOYEES TO PROJECTS
+````
+### 9. ASSIGNING EMPLOYEES TO PROJECTS
+````
 INSERT INTO Employee_Project
 (emp_id, project_id, hours_worked)
 VALUES
@@ -138,16 +151,22 @@ VALUES
 (128, 208, 160),
 (129, 207, 120),
 (130, 208, 135);
-SQL QUERIES
+````
+### SQL QUERIES
 
-SELECTION
+1. SELECTION
+```
 SELECT *
 FROM Employee
 WHERE salary > 80000;
-PROJECTION
+```
+2. PROJECTION
+```
 SELECT emp_name, salary
 FROM Employee;
-AGGREGATE FUNCTIONS
+```
+3. AGGREGATE FUNCTIONS
+```
 SELECT
     COUNT(*) AS total_employees,
     SUM(salary) AS total_salary,
@@ -155,13 +174,17 @@ SELECT
     MAX(salary) AS highest_salary,
     MIN(salary) AS lowest_salary
 FROM Employee;
-GROUP BY
+```
+4. GROUP BY
+```
 SELECT
     dept_id,
     COUNT(*) AS employee_count
 FROM Employee
 GROUP BY dept_id;
-GROUP BY WITH JOIN
+```
+5. GROUP BY WITH JOIN
+```
 SELECT
     d.dept_name,
     AVG(e.salary) AS average_salary
@@ -169,7 +192,9 @@ FROM Department d
 JOIN Employee e
     ON d.dept_id = e.dept_id
 GROUP BY d.dept_name;
-HAVING
+```
+6. HAVING
+```
 SELECT
     d.dept_name,
     AVG(e.salary) AS average_salary
@@ -178,7 +203,9 @@ JOIN Employee e
     ON d.dept_id = e.dept_id
 GROUP BY d.dept_name
 HAVING AVG(e.salary) > 75000;
-CASE EXPRESSIONS
+```
+7. CASE EXPRESSIONS
+```
 SELECT
     emp_name,
     salary,
@@ -188,14 +215,18 @@ SELECT
         ELSE 'Low Salary'
     END AS salary_category
 FROM Employee;
-ORDER BY
+```
+8. ORDER BY
+```
 SELECT
     emp_id,
     emp_name,
     salary
 FROM Employee
 ORDER BY salary DESC;
-COMPLETE EMPLOYEE–DEPARTMENT REPORT
+```
+9. COMPLETE EMPLOYEE–DEPARTMENT REPORT
+```
 SELECT
     e.emp_id,
     e.emp_name,
@@ -213,7 +244,9 @@ FROM Project p
 JOIN Department d
     ON p.dept_id = d.dept_id
 ORDER BY p.budget DESC;
-EMPLOYEES WORKING ON PROJECTS
+```
+10. EMPLOYEES WORKING ON PROJECTS
+```
 SELECT
     e.emp_name,
     p.project_name,
